@@ -1,0 +1,71 @@
+---
+title: "Warmup 1 Assignment"
+output:
+  html_document: default
+  pdf_document: default
+---
+## Star Wars Character
+### *Tamara Ryvora*
+![Image of Tamara Ryvora](stat133_tamara.png)
+
+Famous quote by Tamara: 
+
+> "It's good to go."
+
+Description   | Value
+------------- | -------------
+Species       | Human
+Gender        | Female
+Hair Color    | Black
+Eye Color     | Brown
+
+
+## Cooking Recipe
+### *Silky, Decadent Old-School Chocolate Mousse*
+#### Ingredients
+* 8 ounces bittersweet chocolate (no more than 60% cacao), chopped
+* 3/4 stick (3 ounces) unsalted butter, cut into 6 pieces
+* 3 large eggs, separated
+* 1 tablespoon Cognac or other brandy (or swap with a liqueur of your choice)
+* 1 cup very cold heavy or whipping cream
+* 1/8 teaspoon salt
+
+### Steps to cook it
+
+Get out one large heatproof, two medium and one small mixing bowl and dust off your electric hand mixer.
+
+Set the large bowl over a saucepan of barely simmering water and melt the chocolate and butter in it, gently stirring it until smooth. Remove from heat. 
+
+In the small bowl, beat yolks with your electric mixer until thick enough to form a ribbon that takes a few seconds to dissolve — this will take about two to four minutes to achieve. Whisk yolks into chocolate mixture along with Cognac, then cool to warm.
+
+In one of the medium bowls, beat the cream with cleaned beaters until it just holds stiff peaks.
+
+In the other medium bowl, beat the egg whites and salt with cleaned beaters until they just hold soft peaks.
+
+Fold the whipped cream and beaten whites into the chocolate mixture, gently but thoroughly. Transfer to 8 (4 ounce) ramekins or one large serving bowl, or go restaurant-style, serving it in stemmed glasses with white or dark chocolate shavings on top.
+
+![Image of Chocolate Mousse](stat133_mousse.jpg)
+
+## Euclidean Distance
+### Definition [edit]
+***
+The **Euclidean distance** between points p and q is the length of the line segment connecting them (**pq**).
+In Cartesian coordinates, if **p** = $(p_1, p_2,..., p_n)$ and **q** = $(q_1, q_2,..., q_n)$ are two points in Euclidean n-space, then the distance (d) from **p** to **q**, or from **q** to **p** is given by the Pythagorean formula:
+
+$$ d(p,q) = d(q,p) = \sqrt{ {q_1 - p_1}^2 + {q_2 - p_2}^2 + ... + {q_n - p_n}^2 } = \lVert1\rVert $$
+$$                 = \sqrt{ \sum_{i=1}^{n} {q_i - p_i}^2  }. $$
+The position of a point in a Euclidean n-space is a [Euclidean vector](https://en.wikipedia.org/wiki/Euclidean_vector). So, p and q may be represented as Euclidean vectors, starting from the origin of the space (initial point) with their tips (terminal points) ending at the two points. The Euclidean norm, or **Euclidean length**, or **magnitude** of a vector measures the length of the vector:
+
+$$ \lVert{p}\rVert = \sqrt{ {p_1}^2 + {p_2}^2 + ... + {p_n}^2 } = \sqrt{p.p} $$
+
+where the last expression involves the [dot product](https://en.wikipedia.org/wiki/Dot_product).
+
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
