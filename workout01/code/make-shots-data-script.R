@@ -11,11 +11,11 @@
 
 setwd("/Users/antarajha/Desktop/hw-stat133/workout01/data")
 
-curry <- read.csv("/Users/antarajha/Desktop/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE, header = TRUE)
-iguodala = read.csv("/Users/antarajha/Desktop/workout01/data/andre-iguodala.csv", stringsAsFactors = FALSE, header = TRUE)
-green = read.csv("/Users/antarajha/Desktop/workout01/data/draymond-green.csv", stringsAsFactors = FALSE, header = TRUE)
-durant = read.csv("/Users/antarajha/Desktop/workout01/data/kevin-durant.csv", stringsAsFactors = FALSE, header = TRUE)
-thompson = read.csv("/Users/antarajha/Desktop/workout01/data/klay-thompson.csv", stringsAsFactors = FALSE, header = TRUE)
+curry <- read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE, header = TRUE)
+iguodala = read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/andre-iguodala.csv", stringsAsFactors = FALSE, header = TRUE)
+green = read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/draymond-green.csv", stringsAsFactors = FALSE, header = TRUE)
+durant = read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/kevin-durant.csv", stringsAsFactors = FALSE, header = TRUE)
+thompson = read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/klay-thompson.csv", stringsAsFactors = FALSE, header = TRUE)
 
 #Create vector with player names
 player_names = c("curry", "iguodala", "green", "durant", "thompson")
@@ -44,11 +44,32 @@ thompson$shot_made_flag[thompson$shot_made_flag == 'n'] = "shot_no"
 thompson$shot_made_flag[thompson$shot_made_flag == 'y'] = "shot_yes"
 
 #Creating minute column that contains the minute number where a shot occurred
-curry$minute = curry$period*12 - curry$minutes_remaining
-iguodala$minute = iguodala$period*12 - iguodala$minutes_remaining
-green$minute = green$period*12 - green$minutes_remaining
-thompson$minute = thompson$period*12 - thompson$minutes_remaining
-durant$minute = durant$period*12 - durant$minutes_remaining
+curry$minute[curry$period==1] = 12 - curry$minutes_remaining
+curry$minute[curry$period==2] = 24 - curry$minutes_remaining
+curry$minute[curry$period==3] = 36 - curry$minutes_remaining
+curry$minute[curry$period==4] = 48 - curry$minutes_remaining
+
+green$minute[green$period==1] = 12 - green$minutes_remaining
+green$minute[green$period==2] = 24 - green$minutes_remaining
+green$minute[green$period==3] = 36 - green$minutes_remaining
+green$minute[green$period==4] = 48 - green$minutes_remaining
+
+iguodala$minute[iguodala$period==1] = 12 - iguodala$minutes_remaining
+iguodala$minute[iguodala$period==2] = 24 - iguodala$minutes_remaining
+iguodala$minute[iguodala$period==3] = 36 - iguodala$minutes_remaining
+iguodala$minute[iguodala$period==4] = 48 - iguodala$minutes_remaining
+
+durant$minute[durant$period==1] = 12 - durant$minutes_remaining
+durant$minute[durant$period==2] = 24 - durant$minutes_remaining
+durant$minute[durant$period==3] = 36 - durant$minutes_remaining
+durant$minute[durant$period==4] = 48 - durant$minutes_remaining
+
+thompson$minute[thompson$period==1] = 12 - thompson$minutes_remaining
+thompson$minute[thompson$period==2] = 24 - thompson$minutes_remaining
+thompson$minute[thompson$period==3] = 36 - thompson$minutes_remaining
+thompson$minute[thompson$period==4] = 48 - thompson$minutes_remaining
+
+
 
 #Use sink() to send the summary() output of each imported data frame into individuals text files
 setwd("../output")
@@ -58,19 +79,19 @@ summary(curry)
 sink()
 
 sink("andre-iguodala-summary.txt")
-summary(curry)
+summary(iguodala)
 sink()
 
 sink("kevin-durant-summary.txt")
-summary(curry)
+summary(durant)
 sink()
 
 sink("graymond-green-summary.txt")
-summary(curry)
+summary(green)
 sink()
 
 sink("klay-thompson-summary.txt")
-summary(curry)
+summary(thompson)
 sink()
 
 #stack the tables into one single data frame

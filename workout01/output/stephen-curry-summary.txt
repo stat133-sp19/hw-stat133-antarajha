@@ -14,8 +14,8 @@
                                        Max.   :71.00                      Max.   : 240.000   Max.   :717.0                     
      minute     
  Min.   : 1.00  
- 1st Qu.:10.25  
+ 1st Qu.:11.00  
  Median :24.00  
- Mean   :23.44  
+ Mean   :23.51  
  3rd Qu.:34.00  
  Max.   :48.00  

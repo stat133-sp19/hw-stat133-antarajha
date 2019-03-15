@@ -12,10 +12,10 @@
                                        Mean   :15.58                      Mean   :   7.746   Mean   :109.4                     
                                        3rd Qu.:25.00                      3rd Qu.:  95.500   3rd Qu.:198.0                     
                                        Max.   :71.00                      Max.   : 246.000   Max.   :717.0                     
-     minute    
- Min.   : 1.0  
- 1st Qu.:11.0  
- Median :23.0  
- Mean   :22.8  
- 3rd Qu.:33.0  
- Max.   :48.0  
+     minute     
+ Min.   : 1.00  
+ 1st Qu.:11.00  
+ Median :23.00  
+ Mean   :22.83  
+ 3rd Qu.:34.00  
+ Max.   :48.00  

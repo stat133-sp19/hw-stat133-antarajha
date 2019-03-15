@@ -4,8 +4,7 @@ author: "Antara Jha"
 output: github_document
 ---
 ```{r}
-library(dplyr)
-#read_table("/Users/antarajha/Desktop/hw-stat133/workout01/data/stephen-curry.csv")
+curry <- read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE, header = TRUE)
 ```
 
 #Introduction
@@ -21,11 +20,17 @@ The Golden State Warriors are an American professional basketball team based in 
 For the Warriors, wild numbers are more than just wild. Some carry historical significance. Others lengthen their lead on a basketball world trying—and almost always failing—to keep up. 
 
 ##Data
-The data that I have used combines a statistics about a variety of variables, right from their team details to the details of every shot they have taken (when was it taken? what kind of shot was it? did it go in?).
-
+The data that I have used combines a statistics about a variety of variables, right from their team details to the details of every shot they have taken (when was it taken? what kind of shot was it? did it go in?). Here is an example of data about Stephen Curry
+```{r}
+head(curry, n=5)
+```
 
 ##Analysis
 The analysis involved cleaning the data, adding columns to better categorize the date (by player name), generating charts that make the observations and analysis more clear, and combining tables.
+Here is an example of a summary of data about Stephen Curry:
+```{r}
+summary(curry)
+```
 
 Here is an image that captures the main elements of the analysis about the shots made by each of the players:
 
@@ -33,9 +38,5 @@ Here is an image that captures the main elements of the analysis about the shots
 knitr::include_graphics("/Users/antarajha/Desktop/hw-stat133/workout01/images/gsw_shots_chart.png")
 ```
 
-```{r}
-tb1 = group_by(shots_table, name)
-tb1
-#summarise(tb1)
-```
+
 
