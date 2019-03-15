@@ -1,14 +1,37 @@
 ---
-title: "Workout 1"
+title: "Workout 1: Report on GSW Shots Data"
 author: "Antara Jha"
 output: github_document
 ---
-```{r}
+```{r include=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+
 curry <- read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE, header = TRUE)
+shots_data = read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/shots_data.csv", stringsAsFactors = FALSE, header = TRUE)
+
+effective_shooting <- shots_data %>% select(name, shot_made_flag) %>% mutate(count = 1) %>% group_by(name) %>% summarise(total = n(), made = sum(shot_made_flag == "shot_yes")) %>% mutate(percentage = made / total) %>% arrange(desc(percentage))
+effective_shooting <- as_tibble(effective_shooting)
+
+effective_shooting
+
+twop_shooting <- shots_data %>% select(name, shot_type, shot_made_flag) %>% mutate(count = 1) %>% group_by(name) %>% summarise(total = n(), made = sum(shot_type == "2PT Field Goal" & shot_made_flag == "shot_yes")) %>% mutate(percentage = made / total) %>% arrange(desc(percentage))
+twop_shooting <- as_tibble(twop_shooting)
+
+twop_shooting
+
+threep_shooting <- shots_data %>% select(name, shot_type, shot_made_flag) %>% mutate(count = 1) %>% group_by(name) %>% summarise(total = n(), made = sum(shot_type == "3PT Field Goal" & shot_made_flag == "shot_yes")) %>% mutate(percentage = made / total) %>% arrange(desc(percentage))
+threep_shooting <- as_tibble(threep_shooting)
+
+threep_shooting
+
+
 ```
 
 #Introduction
 ANALYSIS OF GSW PLAYERS
+
 This is an analysis of the performance of the starting 5 GSW players.
 
 ##Motivation
@@ -27,16 +50,39 @@ head(curry, n=5)
 
 ##Analysis
 The analysis involved cleaning the data, adding columns to better categorize the date (by player name), generating charts that make the observations and analysis more clear, and combining tables.
+
 Here is an example of a summary of data about Stephen Curry:
+
 ```{r}
 summary(curry)
 ```
 
+Further, here is some data regarding the 2 pointer shots made by players. 
+
+```{r echo=FALSE}
+twop_shooting
+```
+
+Further, here is some data regarding the 3 pointer shots made by players. 
+```{r echo=FALSE}
+threep_shooting
+```
+
+To get a better overall picture, here is some summarized data on overall shots made by players. 
+```{r echo=FALSE}
+effective_shooting
+```
+
+As you can see, Kevin Durant is the best effective shooter on the team, even though he is not the top 3 point shooter on the team.
+
+###Image to Illustrate Shots Data
 Here is an image that captures the main elements of the analysis about the shots made by each of the players:
 
 ```{r out.width='80%', echo=FALSE, fig.align='center'}
 knitr::include_graphics("/Users/antarajha/Desktop/hw-stat133/workout01/images/gsw_shots_chart.png")
 ```
 
+##Conclusion
+I hope this report gave you a better insight into the performance of GSW Players! Kevin Durant is by far the most effective shooter on the GSW team. However, all players perform extremely well. I am sure GSW will have a fantastic season ahead with such great players who are performing so well. 
 
 

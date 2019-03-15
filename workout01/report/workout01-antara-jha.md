@@ -1,15 +1,13 @@
-Workout 1
+Workout 1: Report on GSW Shots Data
 ================
 Antara Jha
-
-``` r
-curry <- read.csv("/Users/antarajha/Desktop/hw-stat133/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE, header = TRUE)
-```
 
 Introduction
 ============
 
-ANALYSIS OF GSW PLAYERS This is an analysis of the performance of the starting 5 GSW players.
+ANALYSIS OF GSW PLAYERS
+
+This is an analysis of the performance of the starting 5 GSW players.
 
 Motivation
 ----------
@@ -54,7 +52,9 @@ head(curry, n=5)
 Analysis
 --------
 
-The analysis involved cleaning the data, adding columns to better categorize the date (by player name), generating charts that make the observations and analysis more clear, and combining tables. Here is an example of a summary of data about Stephen Curry:
+The analysis involved cleaning the data, adding columns to better categorize the date (by player name), generating charts that make the observations and analysis more clear, and combining tables.
+
+Here is an example of a summary of data about Stephen Curry:
 
 ``` r
 summary(curry)
@@ -89,6 +89,48 @@ summary(curry)
     ##  3rd Qu.:228.0  
     ##  Max.   :717.0
 
+Further, here is some data regarding the 2 pointer shots made by players.
+
+    ## # A tibble: 5 x 4
+    ##   name           total  made percentage
+    ##   <chr>          <int> <int>      <dbl>
+    ## 1 Kevin Durant     915   390      0.426
+    ## 2 Andre Iguodala   371   134      0.361
+    ## 3 Graymond Green   578   171      0.296
+    ## 4 Klay Thompson   1220   329      0.270
+    ## 5 Stephen Curry   1250   304      0.243
+
+Further, here is some data regarding the 3 pointer shots made by players.
+
+    ## # A tibble: 5 x 4
+    ##   name           total  made percentage
+    ##   <chr>          <int> <int>      <dbl>
+    ## 1 Stephen Curry   1250   280      0.224
+    ## 2 Klay Thompson   1220   246      0.202
+    ## 3 Andre Iguodala   371    58      0.156
+    ## 4 Graymond Green   578    74      0.128
+    ## 5 Kevin Durant     915   105      0.115
+
+To get a better overall picture, here is some summarized data on overall shots made by players.
+
+    ## # A tibble: 5 x 4
+    ##   name           total  made percentage
+    ##   <chr>          <int> <int>      <dbl>
+    ## 1 Kevin Durant     915   495      0.541
+    ## 2 Andre Iguodala   371   192      0.518
+    ## 3 Klay Thompson   1220   575      0.471
+    ## 4 Stephen Curry   1250   584      0.467
+    ## 5 Graymond Green   578   245      0.424
+
+As you can see, Kevin Durant is the best effective shooter on the team, even though he is not the top 3 point shooter on the team.
+
+### Image to Illustrate Shots Data
+
 Here is an image that captures the main elements of the analysis about the shots made by each of the players:
 
 <img src="/Users/antarajha/Desktop/hw-stat133/workout01/images/gsw_shots_chart.png" width="80%" style="display: block; margin: auto;" />
+
+Conclusion
+----------
+
+I hope this report gave you a better insight into the performance of GSW Players! Kevin Durant is by far the most effective shooter on the GSW team. However, all players perform extremely well. I am sure GSW will have a fantastic season ahead with such great players who are performing so well.
