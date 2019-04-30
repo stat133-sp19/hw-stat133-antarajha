@@ -1,0 +1,321 @@
+library(DistributionUtils)
+library(ggplot2)
+
+# Private Checker Functions
+# private function to check prob
+check_prob = function(prob) {
+  if (any(prob < 0) | any(prob > 1)) {
+    stop("\n'prob' values must be between 0 and 1")
+  }
+  TRUE
+}
+# private function to check trials
+check_trials = function(trials) {
+  if ((trials < 0) | is.wholenumber(trials) == "FALSE") {
+    stop("\n'trials' value must be a non-negative integer")
+  }
+  TRUE
+}
+
+# private function to check success
+check_success = function(success, trials) {
+  if ((is.wholenumber(trials) == "FALSE") | any(is.wholenumber(success)) == 'FALSE') {
+    stop("\n'success' and 'trials' values muct be integers") }
+  if (any(success > trials)) {
+    stop("\n'success' values cannot be greater than number of trials") }
+  if (any(success < 0)) {
+    stop("\n'success' values muct be non-negative") }
+  return(TRUE)
+  }
+
+
+# Private Auxiliary Functions
+# auxiliary function to calculate mean
+aux_mean = function(trials, prob) {
+  mean = trials * prob
+  return (mean)
+}
+# auxiliary function to calculate variance
+aux_variance = function(trials, prob) {
+  variance = trials * prob * (1 - prob)
+  return(variance)
+}
+
+# auxiliary function to calculate mode
+aux_mode = function(trials, prob) {
+  mode = as.integer((trials * prob) + prob)
+  return(mode)
+}
+
+# auxiliary function to calculate skewness
+aux_skewness = function(trials, prob) {
+  skewness = (1 - 2*prob) / (sqrt(trials * prob * (1 - prob)))
+  return(skewness)
+}
+
+# auxiliary function to calculate kurtosis
+aux_kurtosis = function(trials, prob) {
+  kurtosis = (1 - (6*prob)*(1 - prob)) / (trials * prob * (1 - prob))
+  return(kurtosis)
+}
+
+# Function bin_choose()
+#' @title Binomial Combinations
+#' @description calculates the number of combinations in which k successes can occur in n trials
+#' @param n number of trials
+#' @param k number of successes
+#' @return the number of combinations in which k successes can occur in n trials
+#' @export
+#' @examples
+#' bin_choose(n = 5, k = 2)
+#' bin_choose(5, 0)
+#' bin_choose(5, 1:3)
+#'
+bin_choose = function(n, k) {
+  if (any(k > n)) {stop("k cannot be greater than n")}
+  n_choose_k = factorial(n) / (factorial(k) * factorial(n - k))
+  return(n_choose_k)
+}
+
+# Function bin_probability()
+#' @title Binomial Probability
+#' @description calculates the probability of getting k successes in n trials
+#' @param success number of successes
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return the number of combinations in which k successes can occur in n trials
+#' @export
+#' @examples
+#' bin_probability(success = 2, trials = 5, prob = 0.5)
+#' bin_probability(success = 0:2, trials = 5, prob = 0.5)
+#'
+bin_probability = function(success, trials, prob) {
+  check_success(success, trials)
+  check_trials(trials)
+  check_prob(prob)
+  bin_prob = (bin_choose(trials, success)) * (prob**success) * ((1 - prob)**(trials - success))
+  return(bin_prob)
+}
+
+# Function bin_distribution()
+#' @title Binomial Distribution
+#' @description return a data frame with the probability distribution:
+#' sucesses in the first column, probability in the second column
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return a data frame with the probability distribution:
+#' sucesses in the first column, probability in the second column
+#' @export
+#' @examples
+#' bin_distribution(trials = 5, prob = 0.5)
+#'
+success = c()
+probability = c()
+bin_distribution = function(trials, prob) {
+  for (i in 0:trials) {
+    success = append(success, i)
+    probability = append(probability, bin_probability(i, trials, prob))
+  }
+  bindis = data.frame(success, probability)
+  class(bindis) = c("bindis", "data.frame")
+  return(bindis)
+}
+
+# Function plot.bindis()
+#' @export
+#'
+plot.bindis = function(bindis) {
+  ggplot(bindis, aes(x = success, y = probability)) + geom_bar(stat = "identity")
+}
+
+#test
+#dis1 <- bin_distribution(trials = 5, prob = 0.5)
+#plot(dis1)
+
+# Function bin_cumulative()
+#' @title Binomial Cumulative Distribution
+#' @description return a data frame with the cumulative probability distribution:
+#' sucesses in the first column, probability in the second column, cumulative in third column
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return a data frame with the cumulative probability distribution:
+#' sucesses in the first column, probability in the second column, cumulative in third column
+#' @export
+#' @examples
+#' bin_distribution(trials = 5, prob = 0.5)
+#'
+success = c()
+probability = c()
+cumulative = c()
+bin_cumulative = function(trials, prob) {
+  for (i in 0:trials) {
+    success = append(success, i)
+    probability = append(probability, bin_probability(i, trials, prob))
+  }
+  cumulative = append(cumulative, cumsum(probability))
+  bincum = data.frame(success, probability, cumulative)
+  class(bincum) = c("bincum", "data.frame")
+  return(bincum)
+}
+
+#test
+#bin_cumulative(trials = 5, prob = 0.5)
+
+# Function plot.bincum()
+#' @export
+#'
+plot.bincum = function(bincum) {
+  ggplot(bincum, aes(x = success, y = cumulative)) + geom_point() + geom_line() + xlab("successes") + ylab("probability")
+}
+
+#test
+#dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+#plot(dis2)
+
+# Function bin_variable()
+#' @title Binomial Variable
+#' @description return a list with named elements: trials: number of trials,
+#' prob: probability of success
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return return a list with named elements: trials: number of trials,
+#' prob: probability of success
+#' @export
+#' @examples
+#' bin_variable(trials = 10, p = 0.3)
+#'
+bin_variable = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  binvar = list(trials = trials, prob = prob)
+  class(binvar) = "binvar"
+  binvar
+}
+
+# Methods for binvar
+# Method print.binvar()
+#' @export
+#'
+print.binvar = function(binvar, ...) {
+  cat('"Binomial Variable" \n\n')
+  cat('Paramaters \n')
+  cat(sprintf("- number of trials: %s", binvar$trials[1]), "\n")
+  cat(sprintf("- prob of success : %s", binvar$prob[1]), "\n")
+  invisible(binvar)
+}
+
+
+# Method summary.binvar()
+#' @export
+#'
+summary.binvar = function(binvar) {
+  summary_bin = list(
+    trials = binvar$trials,
+    prob = binvar$prob,
+    mean = aux_mean(binvar$trials, binvar$prob),
+    variance = aux_variance(binvar$trials, binvar$prob),
+    mode = aux_mode(binvar$trials, binvar$prob),
+    skewness = aux_skewness(binvar$trials, binvar$prob),
+    kurtosis = aux_kurtosis(binvar$trials, binvar$prob)
+  )
+  class(summary_bin) = "summary.binvar"
+  summary_bin
+}
+
+# Method print.summary.binvar()
+#' @export
+#'
+print.summary.binvar = function(binvar) {
+  cat('"Summary Binomial" \n\n')
+  cat('Paramaters \n')
+  cat(sprintf("- number of trials: %s", binvar$trials[1]), "\n")
+  cat(sprintf("- prob of success : %s", binvar$prob[1]), "\n\n")
+  cat('Measures \n')
+  cat(sprintf("- mean: %s", aux_mean(binvar$trials, binvar$prob)), "\n")
+  cat(sprintf("- variance: %s", binvar$variance[1]), "\n")
+  cat(sprintf("- mode: %s", binvar$mode[1]), "\n")
+  cat(sprintf("- skewness: %s", binvar$skewness[1]), "\n")
+  cat(sprintf("- kurtosis: %s", binvar$kurtosis[1]), "\n")
+  invisible(binvar)
+}
+
+# Functions of measures
+#bin_mean
+#' @title Mean
+#' @description returns mean
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return mean value
+#' @export
+#' @examples
+#' bin_mean(10, 0.3)
+#'
+bin_mean = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  return(aux_mean(trials, prob))
+}
+
+#bin_variance
+#' @title Variance
+#' @description returns variance
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return variance
+#' @export
+#' @examples
+#' bin_variance(10, 0.3)
+#'
+bin_variance = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  return(aux_variance(trials, prob))
+}
+
+#bin_mode
+#' @title Mode
+#' @description returns mode
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return mode
+#' @export
+#' @examples
+#' bin_mode(10, 0.3)
+#'
+bin_mode = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  return(aux_mode(trials, prob))
+}
+
+#bin_skewness
+#' @title Skewness
+#' @description returns skewness of distribution
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return skewness value
+#' @export
+#' @examples
+#' bin_skewness(10, 0.3)
+#'
+bin_skewness = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  return(aux_skewness(trials, prob))
+}
+
+#bin_kurtosis
+#' @title Kurtosis
+#' @description returns kurtosis of distribution
+#' @param trials number of trials
+#' @param prob probability of success
+#' @return kurtosis value
+#' @export
+#' @examples
+#'
+#'
+bin_kurtosis = function(trials, prob) {
+  check_trials(trials)
+  check_prob(prob)
+  return(aux_kurtosis(trials, prob))
+}

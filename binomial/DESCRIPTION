@@ -1,0 +1,21 @@
+Package: binomial
+Type: Package
+Title: Computation Tool for Binomial Probability Functions
+Version: 0.1.0
+Author: Antara Jha
+Maintainer: Antara Jha <antarajha@berkeley.edu>
+Description: This package contains simple but powerful functions that are used for 
+    certain kinds of computation that are required when working with binomial 
+    variables and probability functions. 
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Imports:
+    ggplot2, 
+    DistributionUtils

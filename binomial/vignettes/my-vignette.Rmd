@@ -1,0 +1,73 @@
+---
+title: "Understanding the R Package 'Binomial' "
+author: "Antara Jha"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(binomial)
+```
+## Introduction
+The package 'binomial' is a simple but powerful package that helps users compute basic probability functions and see plot the results of those computations.
+It implements functions for calculating probabilities of a Binomial random variable, and related calculations such as the probability distribution, the expected value, variance, etc.
+
+## Calculations Powered by 'binomial'
+Using the package 'binomial', users can view the summary statistics of a binomial variable, or individually compute (using the function indicated in paranthesis) the certain values for a binomial variable.
+
+First, the following function should be used:
+bin_variable() : creates a binomial variable object, whose summary statistics can be computed by using method 'summary' on the binvar object.
+
+The following values can be found in the summary (or computed individually) of a binomial variable:
+
+* mean (bin_mean())
+* variance (bin_variance())
+* mode (bin_mode())
+* skewness (bin_skewness())
+* kurtosis (bin_kurtosis())
+
+## Additional computations:
+bin_choose() : calculates the number of combinations in which k successes can occur in n trials.
+
+bin_probability() : calculates probability of getting k successes in n trials
+
+bin_distribution() : returns dataframe with the binomial distribution of the variable. This function can be plotted.
+
+bin_cumulative() : returns dataframe with the cumulative binomial distribution of the variable. This function can be plotted.
+
+Users can also plot the distributions and cumulative frequencies so as to gain a visual understanding of the probability distribution and cumulative frequencies of a random binomial variable.
+
+This can be done using the plot.bindis() and plot.bincum() functions.
+
+## Examples
+```{r}
+library(binomial)
+library(DistributionUtils)
+library(ggplot2)
+# Building a random variiable, seeing its summary statistics
+example_variable = bin_variable(4, 0.4)
+example_variable
+summary(example_variable)
+
+# Creating a sample probability distribution by inputing number of successes, trials and probability
+bin_probability(3, 4, 0.75)
+# Viewing the probability distribution
+ex_distribution = bin_distribution(4, 0.5)
+# Plotting the distribution to study it visually
+plot.bindis(ex_distribution)
+
+#Creating a cumulative probability distribution, and plotting it
+ex_cum = bin_cumulative(10, 0.6)
+plot.bincum(ex_cum)
+```
+
