@@ -1,4 +1,0 @@
-#' @import ggplot2
-#' @import DistributionUtils
-#' @name binomial
-#' @docType package
